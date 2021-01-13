@@ -1,72 +1,121 @@
 package ru.netology.domain;
 
 public class Radio {
-    private int station = 0;
-    private int volume = 3;
+    
+    private int minVolume;
+    private int maxVolume;
+    private int currentVolume;
+    private int minRadioStation;
+    private int maxRadioStation;
+    private int currentRadioStation;
+    private boolean on;
 
-    /* Установка параметров */
-
-    public void setStation(int station) {
-        if (station > 9) {
-            return;
-        }
-        if (station < 0) {
-            return;
-        }
-        this.station = station;
+    public int getMinVolume() {
+        return minVolume;
     }
 
-    public void setVolume(int volume) {
-        if (volume > 10) {
-            return;
-        }   
-        if (volume < 0) {
-            return;
-        }
-        this.volume = volume;
+    public void setMinVolume(int minVolume) {
+        this.minVolume = minVolume;
     }
 
-    /* Оперирование станциями */
-
-    public void switchStationUp() {
-        if (station == 9) {
-            setStation(0);
-            return;
-        }
-        setStation(station + 1);
+    public int getMaxVolume() {
+        return maxVolume;
     }
 
-    public void switchStationDown() {
-        if (station == 0) {
-            setStation(9);
-            return;
-        }
-        setStation(station - 1);
+    public void setMaxVolume(int maxVolume) {
+        this.maxVolume = maxVolume;
     }
 
-    /* Регулировка громкости */
+    public int getCurrentVolume() {
+        return currentVolume;
+    }
+
+    public void setCurrentVolume(int currentVolume) {
+        if (currentVolume >= maxVolume) {
+            this.currentVolume = maxVolume;
+            return;
+        }
+        if (currentVolume <= minVolume) {
+            this.currentVolume = minVolume;
+            return;
+        }
+        this.currentVolume = currentVolume;
+    }
+
+    public int getMinRadioStation() {
+        return minRadioStation;
+    }
+
+    public void setMinRadioStation(int minRadioStation) {
+        this.minRadioStation = minRadioStation;
+    }
+
+    public int getMaxRadioStation() {
+        return maxRadioStation;
+    }
+
+    public void setMaxRadioStation(int maxRadioStation) {
+        this.maxRadioStation = maxRadioStation;
+    }
+
+    public int getCurrentRadioStation() {
+        return currentRadioStation;
+    }
+
+
+    public boolean isOn() {
+        return on;
+    }
+
+    public void setOn(boolean on) {
+        this.on = on;
+    }
 
     public void increaseVolume() {
-        if (volume == 10) {
-            return;
+        if (currentVolume < maxVolume) {
+            currentVolume++;
+        } else {
+            currentVolume = minVolume;
         }
-        setVolume(volume + 1);
     }
 
     public void decreaseVolume() {
-        if (volume == 0) {
+
+        if (currentVolume > minVolume) {
+            currentVolume--;
+        } else {
+            currentVolume = maxVolume;
+        }
+    }
+
+    public void nextRadioStation() {
+
+        if (currentRadioStation < maxRadioStation) {
+            currentRadioStation++;
+        } else {
+            currentRadioStation = minRadioStation;
+        }
+    }
+
+    public void prevRadioStation() {
+
+        if (currentRadioStation > minRadioStation) {
+            currentRadioStation--;
+        } else {
+            currentRadioStation = maxRadioStation;
+        }
+    }
+
+    public void setCurrentRadioStation(int currentRadioStation) {
+
+        if (currentRadioStation > maxRadioStation) {
+            this.currentRadioStation = maxRadioStation;
             return;
         }
-        setVolume(volume - 1);
-    }
-
-    /* Getters */
-
-    public int getVolume() {
-        return volume;
-    }
-
-    public int getStation() {
-        return station;
+        if (currentRadioStation < minRadioStation) {
+            this.currentRadioStation = minRadioStation;
+            return;
+        }
+        this.currentRadioStation = currentRadioStation;
     }
 }
